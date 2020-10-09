@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+import java.util.*;
 
 
 public class Graph{
@@ -185,7 +185,58 @@ public class Graph{
       return myAns;
       
     }
+     
 
+    //BFS..................
+    public void bfs_01(int src, boolean[] visited){
+    
+        Queue<Integer> queue = new LinkedList<>();
+        queue.add(src);
+        visited[src] = true;
+        
+        while (!queue.isEmpty()){
+            int vertex = queue.poll();
+
+            if (visited[vertex]){
+                continue;
+            }
+             
+            visited[vertex] = true;
+            for (Edge e : graph[src]){
+                if (!visited[e.v]){
+                    queue.add(e.v);
+                }
+            }
+        }
+    }
+
+    public static int[] findAllshortDist(int src, boolean[] visited){
+        int[] dis = new int[N];
+        Queue<Integer> queue = new LinkedList<>();
+        queue.add(src);
+        visited[src] = true;
+          
+        int level = 0;
+
+        while (!queue.isEmpty()){
+            int size = queue.size();
+
+            while (size-- > 0) {
+                int vertex = queue.poll();
+                 dis[vertex] = level;
+                for (Edge e : graph[vertex]){
+                    if (!visited[e.v]){
+                          queue.add(e.v);
+                          visited[e.v] = true;
+                    }
+                }
+            }
+            level++;
+        }
+        return dis;
+
+
+    }
     
 
 
@@ -222,9 +273,16 @@ public class Graph{
 
         System.out.println(ans.path+" @ " + ans.weight);
 
-
+        int[] res = findAllshortDist(0, visited);
+         
+        printRes(res);
     }
-
+    
+    private static void printRes(int[] res){
+        for (int v : res){
+            System.out.print(v+" ");
+        }
+    }
     public static void main(String[] args){
         constructGraph();
     }
