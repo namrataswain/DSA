@@ -1,0 +1,7 @@
+Q2. Friends Pairing Problem
+Using normal recusrion answer is : 
+For4 total ways are 10
+Using memoization answer is : 
+For4 total ways are 10
+Using Tabulation answer is : 
+For4 total ways are 10
